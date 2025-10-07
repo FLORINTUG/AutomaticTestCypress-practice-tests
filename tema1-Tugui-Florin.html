@@ -1,0 +1,79 @@
+<script>
+ 
+
+            console.log(' Tema pe acasa JS ');
+
+             let a = 15;
+            let b = 10;
+
+            if(a > b){
+                console.log('a este mai mare decat b');
+            } else {
+                console.log('Nu este indeplinitia conditia a > b');
+
+            }
+
+             masini = ['BMW', 'Audi', 'Dacia', 'Volvo'];
+
+             for(i=0; i < masini.length; i++)
+            console.log('Masina cu numarul '+ [i+1] + ' este ' + masini[i] );
+            
+
+
+
+            produsul = (x,y) => {
+                console.log('Produsul numerilor x si y este ' + (x*y) );
+            }
+            produsul(5,5);
+            
+
+            persoana = (name, sex) => {
+                if(sex === 'M') {
+                    console.log('Salut,domnule ' + name + '.');
+                } else{
+                    console.log('Salut,doamna ' + name + '.');
+                }
+            }
+            persoana('Florin', 'M');
+            persoana('Ana', 'F');
+
+
+
+            // conversion din ES5 in ES6 
+            //1
+             afiseazaVarsta = (x) => {
+                console.log('Varsta mea este ' + x + ' ani.');
+             }
+             afiseazaVarsta(30);
+
+             //2
+             salut= () => {
+                console.log('salut');
+             }
+
+             salut();
+
+             //3
+
+             toCelsius = (fahrenheit) => {
+                console.log((5/9) * (fahrenheit-32));
+             }
+             toCelsius(52);
+
+             pass = (mark) => {
+                if (!mark) {
+                console.log("Invalid Marks!");
+                return;
+                }
+                if (mark > 40) {
+                console.log("Pass!");
+                return true;
+                }
+                else {
+                console.log("Fail!");
+                return false;
+}
+
+             }
+</script>
+
