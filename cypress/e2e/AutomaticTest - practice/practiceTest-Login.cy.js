@@ -3,6 +3,10 @@ describe("Test Application - practice on E-commerce App", () => {
   beforeEach(() => {
 
     cy.visit("https://www.saucedemo.com/");
+    cy.get("#user-name").type("standard_user");
+    cy.get("#password").type("secret_sauce");
+    cy.get("#login-button").click();
+
   })
 /// Login test with the standard user (check if you are logged in afterwards)
 
@@ -11,11 +15,8 @@ describe("Test Application - practice on E-commerce App", () => {
 
   it("Should be able to login with valid credentials", () => {
     
-    cy.get("#user-name").type("standard_user");
-    cy.get("#password").type("secret_sauce");
-    cy.get("#login-button").click();
-
-    cy.url().should("include", "/inventory.html");
+    
+    cy.url().should("include", "/inventory.html");          // Verify URL if login was successful
   })
 
 
@@ -40,10 +41,8 @@ describe("Test Application - practice on E-commerce App", () => {
 
 
   it("Side bar menu Test toggle - Should open and close the side menu", () => {
-    cy.get("#user-name").type("standard_user");
-    cy.get("#password").type("secret_sauce");
-    cy.get("#login-button").click();
-    cy.url().should("include", "/inventory.html"); 
+   
+    
     cy.get("#react-burger-menu-btn").click();   
     cy.get(".bm-menu").should("be.visible"); // Open the burger menu - verify if it's visible
     cy.get("#react-burger-cross-btn").click(); 
@@ -56,9 +55,7 @@ describe("Test Application - practice on E-commerce App", () => {
 
 
   it("Before logout need to be logged in", () => { 
-    cy.get("#user-name").type("standard_user");
-    cy.get("#password").type("secret_sauce");
-    cy.get("#login-button").click();
+   
     cy.url().should("include", "/inventory.html");           // Verify URL if login was successful
      cy.get(".shopping_cart_link").should("be.visible");       // Verify if shopping cart is visible after login  
     cy.get("#react-burger-menu-btn").click();                   // Open the burger menu 
@@ -69,9 +66,7 @@ describe("Test Application - practice on E-commerce App", () => {
 
 
  it("Test cart - add and check items in the cart", () => {
-    cy.get("#user-name").type("standard_user");
-    cy.get("#password").type("secret_sauce");
-    cy.get("#login-button").click();
+    
     cy.url().should("include", "/inventory.html");         // Verify URL if login was successful
     cy.get('[data-test=inventory-item-name]').contains("Sauce Labs Backpack"); // Click on the item 
     cy.get('#add-to-cart-sauce-labs-backpack').click();  // Click on the icon add to cart
@@ -80,9 +75,7 @@ describe("Test Application - practice on E-commerce App", () => {
   })
 it("Remove item from the cart and check if it is removed", () => {
     
-  cy.get("#user-name").type("standard_user");
-    cy.get("#password").type("secret_sauce");
-    cy.get("#login-button").click();
+  
     cy.url().should("include", "/inventory.html");         // Verify URL if login was successful
     cy.get('[data-test=inventory-item-name]')
     .contains("Sauce Labs Fleece Jacket") // Click on the item
@@ -93,9 +86,7 @@ it("Remove item from the cart and check if it is removed", () => {
     cy.get('.shopping_cart_badge').should('not.exist'); // Verify if the cart badge is not visible anymore for double check
   })
 it("Should be able to return to main page from Products page", () => {
-  cy.get("#user-name").type("standard_user");
-    cy.get("#password").type("secret_sauce");
-    cy.get("#login-button").click();
+ 
     cy.get("[data-test=inventory-item-name]")
     .contains("Sauce Labs Bike Light")
     .click()
