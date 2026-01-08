@@ -51,6 +51,7 @@ describe("Test Application - practice on E-commerce App", () => {
   }) 
 
 //Logout test (you must be logged in before you can log out )
+/// The final assertion checks if the login button is visible again after logging out
 
 
 
@@ -65,5 +66,43 @@ describe("Test Application - practice on E-commerce App", () => {
     cy.get("#login-button").should("exist");             // Verify if login button is visible after logout
   })
 
-})
 
+
+ it("Test cart - add and check items in the cart", () => {
+    cy.get("#user-name").type("standard_user");
+    cy.get("#password").type("secret_sauce");
+    cy.get("#login-button").click();
+    cy.url().should("include", "/inventory.html");         // Verify URL if login was successful
+    cy.get('[data-test=inventory-item-name]').contains("Sauce Labs Backpack"); // Click on the item 
+    cy.get('#add-to-cart-sauce-labs-backpack').click();  // Click on the icon add to cart
+    cy.get(".shopping_cart_link").click();       // Click on the cart icon and cehck if the item is in the cart
+    cy.url().should("include", "/cart.html");        //Go tot  Verify if we are in the cart page (URL) and the item is there
+  })
+it("Remove item from the cart and check if it is removed", () => {
+    
+  cy.get("#user-name").type("standard_user");
+    cy.get("#password").type("secret_sauce");
+    cy.get("#login-button").click();
+    cy.url().should("include", "/inventory.html");         // Verify URL if login was successful
+    cy.get('[data-test=inventory-item-name]')
+    .contains("Sauce Labs Fleece Jacket") // Click on the item
+     cy.get('#add-to-cart-sauce-labs-fleece-jacket').click()  // Click on the icon add to cart
+    cy.get(".shopping_cart_link").click()      // Click on the cart icon and cehck if the item is in the cart
+    cy.get("#remove-sauce-labs-fleece-jacket").click() // Remove item from the cart
+    cy.get("cart_item").should("not.exist"); // Verify if the item is removed from the cart with success
+    cy.get('.shopping_cart_badge').should('not.exist'); // Verify if the cart badge is not visible anymore for double check
+  })
+it("Should be able to return to main page from Products page", () => {
+  cy.get("#user-name").type("standard_user");
+    cy.get("#password").type("secret_sauce");
+    cy.get("#login-button").click();
+    cy.get("[data-test=inventory-item-name]")
+    .contains("Sauce Labs Bike Light")
+    .click()
+    cy.get("#back-to-products").click();
+    cy.get("#inventory_container").should("be.exist");
+
+})
+   
+
+  })
