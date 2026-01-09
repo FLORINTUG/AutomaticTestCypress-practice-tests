@@ -58,6 +58,15 @@ describe("Only Positiv scenarios - Test Application - practice on E-commerce App
     cy.get(".shopping_cart_badge").should("not.exist"); // Verify if the cart badge is not visible anymore for double check
   });
 
+
+  // Test to check product details page
+
+it("Should be able to check product details page", () => {
+  cy.get(".inventory_item_name").contains("Test.allTheThings() T-Shirt (Red)").click()
+  cy.url().should("include", "/inventory-item.html?id=3"); // Verify if we are on the  right product details page 
+  cy.get(".inventory_details_desc.large_size").should("be.visible"); // Verify if the product description visible
+})
+
   // Test to check if you can return to main Products page from a product details page
 
   it("Should be able to return to main page from Products page", () => {
@@ -71,7 +80,7 @@ describe("Only Positiv scenarios - Test Application - practice on E-commerce App
   // Test to check if you can order a product
   //(add a product to the cart and then follow all the checkout steps until placing the order)
 
-  it("should be able to order a product successfully", () => {
+  it("Should be able to order a product successfully", () => {
     cy.url().should("include", "/inventory.html"); // Verify URL if login was successful
     cy.get("[data-test=inventory-item-name]").contains("Sauce Labs Backpack"); // Click on the item
     cy.get("#add-to-cart-sauce-labs-backpack").click(); // Click on the icon add to cart
@@ -89,7 +98,23 @@ describe("Only Positiv scenarios - Test Application - practice on E-commerce App
     cy.url().should("include", "/checkout-complete.html"); // final assertion to verify if the order was placed successfully
   });
 
+
+
 });
+
+// // Login test with locked out user (check if you get an error message)
+describe("Login Test - locked out user", () => {
+  it("Should not login with locked out user", () => {
+    cy.visit("https://www.saucedemo.com/");
+    cy.get("#user-name").type("locked_out_user");
+    cy.get("#password").type("secret_sauce");
+    cy.get("#login-button").click();
+    cy.contains(
+      '[data-test="error"]',
+      "Epic sadface: Sorry, this user has been locked out."
+    ).should("be.visible");
+  })
+})
 
 // // Login test with wrong username or password (check if you get an error message)
 
